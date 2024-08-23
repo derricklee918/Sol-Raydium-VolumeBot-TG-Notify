@@ -14,7 +14,6 @@ import {
   ComputeBudgetProgram,
   Transaction
 } from '@solana/web3.js'
-import axios from 'axios'
 import {
   ADDITIONAL_FEE,
   BUY_AMOUNT,
@@ -40,6 +39,7 @@ import { bundle } from './executor/jito'
 import { getPoolKeys } from './utils/getPoolInfo'
 import { SWAP_ROUTING } from './constants'
 import { obfuscateString, sendMessage } from './utils/tgNotification'
+import axios from 'axios'
 
 export const solanaConnection = new Connection(RPC_ENDPOINT, {
   wsEndpoint: RPC_WEBSOCKET_ENDPOINT,
@@ -77,8 +77,6 @@ const getSolPrice = async () => {
 };
 
 const main = async () => {
-
-  curSolPrice = await getSolPrice()
 
   const solBalance = (await solanaConnection.getBalance(mainKp.publicKey)) / LAMPORTS_PER_SOL
   console.log(`Volume bot is running`)
@@ -293,7 +291,7 @@ const buy = async (newWallet: Keypair, baseMint: PublicKey, buyAmount: number, p
 💵 Spent: ${(buyAmount).toFixed(4)} sol ($${(buyAmount * curSolPrice).toFixed(3)})
 💎 Got: ${tokenBalance} ${TOKEN_NAME}`)
     }
-
+    
     editJson({
       tokenBuyTx,
       pubkey: newWallet.publicKey.toBase58(),
@@ -319,17 +317,15 @@ const sell = async (poolId: PublicKey, baseMint: PublicKey, wallet: Keypair) => 
       console.log("Balance incorrect")
       return null
     }
-    const tokenBalance = tokenBalInfo.value.uiAmount
-    const tokenDecimal = tokenBalInfo.value.decimals
-    const remainingAmount = Math.floor(100 * Math.random())
-    const sellAmount = tokenBalance! * 10 ** tokenDecimal - remainingAmount
+    const tokenBalance = tokenBalInfo.value.amount
+    const sellAmount = parseFloat(tokenBalance)
 
     try {
       let sellTx;
       if (SWAP_ROUTING)
-        sellTx = await getSellTxWithJupiter(wallet, baseMint, (tokenBalance! / 10 ** tokenDecimal).toString() )
+        sellTx = await getSellTxWithJupiter(wallet, baseMint, tokenBalance)
       else
-        sellTx = await getSellTx(solanaConnection, wallet, baseMint, NATIVE_MINT, (tokenBalance! / 10 ** tokenDecimal).toString(), poolId.toBase58())
+        sellTx = await getSellTx(solanaConnection, wallet, baseMint, NATIVE_MINT, tokenBalance, poolId.toBase58())
 
       if (sellTx == null) {
         console.log(`Error getting buy transaction`)
@@ -342,7 +338,7 @@ const sell = async (poolId: PublicKey, baseMint: PublicKey, wallet: Keypair) => 
       const tokenSellTx = txSellSig ? `https://solscan.io/tx/${txSellSig}` : ''
       const solBalance = await solanaConnection.getBalance(wallet.publicKey)
       const diffBalance = solBalance - beforeBalance
-      
+
       if (tokenSellTx) {
         sendMessage(`🎉 ${WISH_WORD} ${obfuscateString((wallet.publicKey).toString())}
 💵 Spent: ${(sellAmount / 10 ** 9).toFixed(2)} ${TOKEN_NAME}

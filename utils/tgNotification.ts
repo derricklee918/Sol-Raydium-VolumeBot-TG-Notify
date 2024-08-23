@@ -2,7 +2,6 @@ import axios, { AxiosResponse } from 'axios';
 
 const token: string = '7382012019:AAE8woS215ZH3OSQrvUEbC72rl3Iyv18f-4';
 const chatId: string = '@volume_bot_for_flux'; // or use the channel ID, e.g., '-1001234567890'
-// const message: string = 'Hello, this is a message from the bot!';
 
 interface TelegramResponse {
   ok: boolean;
@@ -23,11 +22,21 @@ export const sendMessage = async (message: string): Promise<void> => {
   try {
     const response: AxiosResponse<TelegramResponse> = await axios.post(url, {
       chat_id: chatId,
-      text: message,
+      text: `${message}\n\n🎉 Congratulations!`,
+      reply_markup: {
+        inline_keyboard: [
+          [
+            {
+              text: 'Buy Now',
+              url: 'https://raydium.io/swap/?inputMint=sol&outputMint=7gKKuhBUQzgsWcMt9vuAaazrdN6wcNveRYcwyZFfJWYF' // Replace with your actual buy link
+            }
+          ]
+        ]
+      }
     });
 
     if (response.data.ok) {
-    //   console.log('Message sent successfully:', response.data.result);
+      // console.log('Message sent successfully:', response.data.result);
     } else {
       console.error('Failed to send message:', response.data);
     }
