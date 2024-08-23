@@ -37,3 +37,7 @@ export const ADDITIONAL_FEE = Number(retrieveEnvVariable('ADDITIONAL_FEE', logge
 export const TOKEN_NAME = retrieveEnvVariable('TOKEN_NAME', logger)
 
 export const WISH_WORD = retrieveEnvVariable('WISH_WORD', logger)
+
+export const SHOW_BUY = retrieveEnvVariable('SHOW_BUY', logger) === 'true'
+
+export const SHOW_SELL = retrieveEnvVariable('SHOW_SELL', logger) === 'true'

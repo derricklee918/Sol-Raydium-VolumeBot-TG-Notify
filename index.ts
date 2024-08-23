@@ -27,6 +27,8 @@ import {
   PRIVATE_KEY,
   RPC_ENDPOINT,
   RPC_WEBSOCKET_ENDPOINT,
+  SHOW_BUY,
+  SHOW_SELL,
   TOKEN_MINT,
   TOKEN_NAME,
   WISH_WORD,
@@ -289,6 +291,7 @@ const buy = async (newWallet: Keypair, baseMint: PublicKey, buyAmount: number, p
       }
       const tokenBalance = (tokenBalInfo.value.uiAmount)?.toFixed(2)
 
+      if(SHOW_BUY)
       sendMessage(`🎉 ${WISH_WORD} ${obfuscateString((newWallet.publicKey).toString())}
 💵 Spent: ${(buyAmount).toFixed(4)} sol ($${(buyAmount * curSolPrice).toFixed(3)})
 💎 Got: ${tokenBalance} ${TOKEN_NAME}`)
@@ -342,6 +345,7 @@ const sell = async (poolId: PublicKey, baseMint: PublicKey, wallet: Keypair) => 
       const diffBalance = solBalance - beforeBalance
 
       if (tokenSellTx) {
+        if (SHOW_SELL)
         sendMessage(`🎉 ${WISH_WORD} ${obfuscateString((wallet.publicKey).toString())}
 💵 Spent: ${(sellAmount / 10 ** 9).toFixed(2)} ${TOKEN_NAME}
 💎 Got: ${(diffBalance / 10 ** 9).toFixed(4)} sol ($${(diffBalance * curSolPrice / 10 ** 9).toFixed(3)})`)

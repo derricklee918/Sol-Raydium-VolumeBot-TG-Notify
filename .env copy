@@ -45,3 +45,9 @@ TOKEN_NAME=GLOW
 
 ###### WISH_WORD TO DISPLAY ######
 WISH_WORD=Hurray!
+
+###### SHOW_BUY_NOTIFICATION #####
+SHOW_BUY=true
+
+###### SHOW_SELL_NOTIFICATION #####
+SHOW_SELL=true
