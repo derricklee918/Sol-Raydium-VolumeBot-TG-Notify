@@ -78,6 +78,8 @@ const getSolPrice = async () => {
 
 const main = async () => {
 
+  curSolPrice = await getSolPrice()
+
   const solBalance = (await solanaConnection.getBalance(mainKp.publicKey)) / LAMPORTS_PER_SOL
   console.log(`Volume bot is running`)
   console.log(`Wallet address: ${mainKp.publicKey.toBase58()}`)
