@@ -92,12 +92,11 @@ npm start
 - ✅ **Sell before gather**: When gathering, if there are tokens left in the wallet, it sells the tokens first and gathers only SOL (the token account rent of 0.00203 SOL is reclaimed).
 - ✅ **More buys than sells**: It randomly buys twice with SOL in the wallet and sells all tokens after some time, making the number of buys twice as many as sells, thus creating more buy pressure.
 
-## Author
 
-Discord: skel1009 in discord
+## Contact me
 
-Twitter: [ewan_tomson](https://x.com/ewan_tomson)
+Discord: derricklee918 in discord
 
-Telegram: [@Ruby0107](https://t.me/@Ruby0107)
+Telegram: [@derricklee918](https://t.me/@derricklee918)
 
 You can always feel free to find me here for my help on other projects.
