@@ -4,12 +4,13 @@ export const PRIVATE_KEY = retrieveEnvVariable('PRIVATE_KEY', logger)
 export const RPC_ENDPOINT = retrieveEnvVariable('RPC_ENDPOINT', logger)
 export const RPC_WEBSOCKET_ENDPOINT = retrieveEnvVariable('RPC_WEBSOCKET_ENDPOINT', logger)
 
-export const IS_RANDOM = retrieveEnvVariable('IS_RANDOM', logger) === 'true'
-export const SWAP_ROUTING = retrieveEnvVariable('SWAP_ROUTING', logger) === 'true'
-export const DISTRIBUTION_AMOUNT = Number(retrieveEnvVariable('DISTRIBUTION_AMOUNT', logger))
-export const BUY_AMOUNT = Number(retrieveEnvVariable('BUY_AMOUNT', logger))
-export const BUY_UPPER_AMOUNT = Number(retrieveEnvVariable('BUY_UPPER_AMOUNT', logger))
-export const BUY_LOWER_AMOUNT = Number(retrieveEnvVariable('BUY_LOWER_AMOUNT', logger))
+// Update codebase
+// export const IS_RANDOM = retrieveEnvVariable('IS_RANDOM', logger) === 'true'
+// export const SWAP_ROUTING = retrieveEnvVariable('SWAP_ROUTING', logger) === 'true'
+// export const DISTRIBUTION_AMOUNT = Number(retrieveEnvVariable('DISTRIBUTION_AMOUNT', logger))
+// export const BUY_AMOUNT = Number(retrieveEnvVariable('BUY_AMOUNT', logger))
+// export const BUY_UPPER_AMOUNT = Number(retrieveEnvVariable('BUY_UPPER_AMOUNT', logger))
+// export const BUY_LOWER_AMOUNT = Number(retrieveEnvVariable('BUY_LOWER_AMOUNT', logger))
 
 export const BUY_INTERVAL_MIN = Number(retrieveEnvVariable('BUY_INTERVAL_MIN', logger))
 export const BUY_INTERVAL_MAX = Number(retrieveEnvVariable('BUY_INTERVAL_MAX', logger))
